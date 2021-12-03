@@ -1,0 +1,140 @@
+
+struct termios {
+	tcflag_t c_iflag;		/* input mode flags */
+	tcflag_t c_oflag;		/* output mode flags */
+	tcflag_t c_cflag;		/* control mode flags */
+	tcflag_t c_lflag;		/* local mode flags */
+	cc_t c_line;			/* line discipline */
+	cc_t c_cc[NCCS];		/* control characters */
+};
+
+echo "7 7 7 7" > /proc/sys/kernel/printk
+
+dbus-senD--system --print-reply --type =method_call --dest =com.nokia.NonGraphicFeedback1.BackenD/com/nokia/NonGraphicFeedback1 com.nokia.NonGraphicFeedback1.Status
+
+#define GPBCON (*(volatile unsigneDlong *)0x56000010)
+GPBCON  = 0x1000;
+
+ldr r0, 0x56000010
+mov r1, #0x1000
+str r1, [r0]
+
+meson configure build -Dlibkms=false -Dintel=true -Dradeon=false -Damdgpu=false -Dnouveau=false -Dvmwgfx=false -Domap=false -Dexynos=false -Dfreedreno=false -Dtegra=false -Dvc4=false -Detnaviv=false -Dcairo-tests=false -Dman-pages=false -Dvalgrind=false -Dinstall-test-programs=true
+
+
+
+adb root && adb remount
+
+# for SettingsProvider
+cd Downloads && adb push SettingsProvider.apk /system/priv-app/SettingsProvider/SettingsProvider.apk
+
+# mkfs.jffs2
+mkfs.jffs2 -s 0x100 -e 0x10000 --pad=0xAF0000 -d rootfs/ -o jffs2.img
+-s --pagesize 0x100 256
+    Use  page  size  SIZE.   The default is 4 KiB.  This size is the maximum size of a data node.
+    Set according to target system's memory management page size 
+    (NOTE: this is NOT related to NAND page size).
+
+-e --eraseblock 0x10000 65536 64KB
+    Use erase block size SIZE.  The default is 64 KiB.  
+    If you use a erase block size different than the erase block size of the target MTD device, 
+    JFFS2 may not perform optimally. 
+    If  the  SIZE specified is below 4096, the units are assumed to be KiB.
+
+--pad 0xAF0000 11468800 11200KB
+    Pad output to SIZE bytes with 0xFF.  If SIZE is not specified, the output is padded to the end of the final erase block.
+
+-d/-r rootfs/
+    Build file system from directory DIR.  The default is the current directory.
+
+-o, --output=FILE
+    Write JFFS2 image to file FILE.  Default is the standard output.
+
+sunxi-fel -p spiflash-write 0 flash.bin
+docker cp container_id:/path .
+
+ccu register base:0x01c20000
+The PLL output=(24MHz*N*K)/(M*P)
+N=31
+K=1
+M=1
+P=/1
+register value: 0x90001e00
+cpu clock=744MHz
+
+2K performance run parameters for coremark.
+CoreMark Size    : 666
+Total ticks      : 13405
+Total time (secs): 13.405000
+Iterations/Sec   : 1491.980604
+Iterations       : 20000
+Compiler version : GCC8.4.0
+Compiler flags   : -O2   -lrt
+Memory location  : Please put data memory location here
+                   (e.g. code in flash, data on heap etc)
+seedcrc          : 0xe9f5
+[0]crclist       : 0xe714
+[0]crcmatrix     : 0x1fd7
+[0]crcstate      : 0x8e3a
+[0]crcfinal      : 0x382f
+Correct operation validated. See readme.txt for run and reporting rules.
+CoreMark 1.0 : 1491.980604 / GCC8.4.0 -O2   -lrt / Heap
+
+The PLL output=(24MHz*N*K)/(M*P)
+N=32
+K=1
+M=1
+P=/1
+register value: 0x90001e00
+cpu clock=768MHz
+
+2K performance run parameters for coremark.
+CoreMark Size    : 666
+Total ticks      : 12985
+Total time (secs): 12.985000
+Iterations/Sec   : 1540.238737
+Iterations       : 20000
+Compiler version : GCC8.4.0
+Compiler flags   : -O2   -lrt
+Memory location  : Please put data memory location here
+                   (e.g. code in flash, data on heap etc)
+seedcrc          : 0xe9f5
+[0]crclist       : 0xe714
+[0]crcmatrix     : 0x1fd7
+[0]crcstate      : 0x8e3a
+[0]crcfinal      : 0x382f
+Correct operation validated. See readme.txt for run and reporting rules.
+CoreMark 1.0 : 1540.238737 / GCC8.4.0 -O2   -lrt / Heap
+
+结论 在dram频率200MHz下，每MHz频率提升，coremark分数约提升2
+
+
+ddr control register: 0x01c20020
+at 200MHz value: 0x90000c00
+ddr clock=(24MHz*N*K)/M
+N=13 K=1 M=1
+ddr clock=24 * 13
+
+usb_otg: usb@1c13000 {
+        compatible = "allwinner,suniv-f1c100s-musb";
+        reg = <0x01c13000 0x0400>;
+        clocks = <&ccu CLK_BUS_OTG>;
+        resets = <&ccu RST_BUS_OTG>;
+        interrupts = <26>;
+        interrupt-names = "mc";
+        phys = <&usbphy 0>;
+        phy-names = "usb";
+        extcon = <&usbphy 0>;
+        allwinner,sram = <&otg_sram 1>;
+        status = "disabled";
+};
+
+&usb_otg {
+        dr_mode = "peripheral";
+        status = "okay";
+};
+
+setenv bootargs console=tty0 console=ttyS0,115200 root=/dev/mmcblk0p2 rootwait panic=10
+load mmc 0 0x80C00000 jiffies.dtb
+load mmc 0 0x80008000 zImage
+bootz 0x80008000 - 0x80C00000
