@@ -1,0 +1,13 @@
+site_name: 从零构建一个完整的嵌入式系统
+repo_url: https://gitee.com/JensenHua/building-embedded-systems-from-scratch
+repo_name: Building Embedded Systems From Scratch
+theme:
+  name: mkdocs
+  locale: zh_CN
+nav:
+    - 主页: index.md
+    - 开发者: developer.md
+    - 关于: 
+        - '作者': authors.md
+        - '许可证': license.md
+        - '发行说明': releasenote.md

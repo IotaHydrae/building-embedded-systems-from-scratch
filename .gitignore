@@ -52,7 +52,6 @@ Mkfile.old
 dkms.conf
 
 # dirs ignored
-**site/
 .vscode/
 .idea/
 
